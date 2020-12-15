@@ -12,8 +12,9 @@
 
 			<div class="wrap-breadcrumb">
 				<ul>
-					<li class="item-link"><a href="#" class="link">home</a></li>
-					<li class="item-link"><span>login</span></li>
+					<li class="item-link"><a href="{{ route('HomePage')}}" class="link">home</a></li>
+					<li class="item-link"><a href="{{ route('Shop.index')}}" class="link">shop</a></li>
+					<li class="item-link"><sapn style="color: red;">CART</sapn></li>
 				</ul>
 			</div>
 			<div class=" main-content-area">
@@ -37,17 +38,22 @@
                		 @endif
 
                  	@if (Cart::count() >0)
-                		<h3 class="box-title">{{ Cart::count() }}Product(s) Name</h3>
-							<div class="products-cart">
+                		<h3 class="box-title">{{ Cart::count() }}Product(s)  In Shopping Cart</h3>
+							<ul class="products-cart">
                         
-                        
-						<div class="pr-cart-item">
-							@foreach ( Cart::content() as $item)
+                        @foreach ( Cart::content() as $item)
+						<li class="pr-cart-item">
+							
 							<div class="product-image">
-                            <a href="{{ route('Shop.show', $item->model->slug)}}"><figure><img src="{{ asset('assets/images/products/'.$item->model->slug.'jpg')}}" alt="item"></figure></a>
+                            <a href="{{ route('Shop.show', $item->model->slug)}}"><figure><img src="{{ asset('assets/images/products/'.$item->model->image)}}" alt="item"></figure></a>
 							</div>
+							<div class="detail-info" >
 							<div class="product-name">
                             <a class="link-to-product" href="{{ route('Shop.show', $item->model->slug)}}">{{ $item->model->name}}</a>
+							</div>
+							<div class="short-desc" style="margin-left: 20px;">
+								{{ $item->model->short_description}}
+							</div>
 							</div>
 							<div class="price-field produtc-price"><p class="price">${{ $item->model->price}}</p></div>
 							<div class="quantity">
@@ -57,19 +63,29 @@
 									<a class="btn btn-reduce" href="#"></a>
 								</div>
 							</div>
-							<div class="price-field sub-total"><p class="price">$256.00</p></div>
-							<div class="delete">
-								<a href="#" class="btn btn-delete" title="">
-									<span>Delete from your cart</span>
-									<i class="fa fa-times-circle" aria-hidden="true"></i>
-								</a>
+							<div class="price-field sub-total">
+								
+								<form action="{{ route('Cart.switchToSaveForLater', $item->rowId)}}" method="POST">
+									{{ csrf_field()}}
+									
+									<button type="submit" class="btn btn-info" style="font-size: 10px;"><i class="fa fa-times-circle" aria-hidden="true"></i>Save Later</button>
+								</form>
+							
 							</div>
-							 @endforeach
-                        </div>
-                        
-					</div>
+							<div class="delete">
+								<form action="{{ route('Cart.destroy', $item->rowId)}}" method="POST">
+									{{ csrf_field()}}
+									{{ method_field('DELETE')}}
+									
+									<button type="submit" class="btn btn-danger" style="font-size: 10px;"><i class="fa fa-times-circle" aria-hidden="true"></i>Remove</button>
+								</form>
+							</div>
+							
+                        </li>
+                         @endforeach
+					</ul>
                  @else
-                 <h3>No items in cart!</h3>
+                 <h3 style="color: red;">No Products in cart!</h3>
                  @endif												
                     
                  
@@ -78,20 +94,66 @@
 				<div class="summary">
 					<div class="order-summary">
 						<h4 class="title-box">Order Summary</h4>
-						<p class="summary-info"><span class="title">Subtotal</span><b class="index">$512.00</b></p>
-						<p class="summary-info"><span class="title">Shipping</span><b class="index">Free Shipping</b></p>
-						<p class="summary-info total-info "><span class="title">Total</span><b class="index">$512.00</b></p>
+						<p class="summary-info"><span class="title" >Subtotal</span><b class="index">${{ Cart::subtotal()}}</b></p>
+						<p class="summary-info"><span class="title">Tax(13%)</span><b class="index">${{ Cart::tax()}}</b></p>
+						<p class="summary-info total-info "><span class="title" style="color: red;">Total</span><b class="index">${{ Cart::total()}}</b></p>
 					</div>
 					<div class="checkout-info">
-						<label class="checkbox-field">
-							<input class="frm-input " name="have-code" id="have-code" value="" type="checkbox"><span>I have promo code</span>
-						</label>
-						<a class="btn btn-checkout" href="checkout.html">Check out</a>
-						<a class="link-to-shop" href="shop.html">Continue Shopping<i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+						<a class="btn btn-checkout" href="{{ route('CheckOut.index')}}" style="width: 50%;float: right;" >Check out</a>
+						
+						<a class="btn btn-checkout" href="{{ route('Shop.index')}}" style="background-color:grey;float: left;width:50%;">Continue Shopping<i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
 					</div>
-					<div class="update-clear">
-						<a class="btn btn-clear" href="#">Clear Shopping Cart</a>
-						<a class="btn btn-update" href="#">Update Shopping Cart</a>
+					<div class="wrap-iten-in-cart">
+						@if (Cart::instance('saveForLater')->count() >0)
+						<h3 class="box-title">{{ Cart::instance('saveForLater')->count() }}Product(s)  Save For Later</h3>
+						
+						<ul class="products-cart">
+							@foreach ( Cart::instance('saveForLater')->content() as $item)
+
+							<li class="pr-cart-item">
+							
+							<div class="product-image">
+                            <a href="{{ route('Shop.show', $item->model->slug)}}"><figure><img src="{{ asset('assets/images/products/'.$item->model->image)}}" alt="item"></figure></a>
+							</div>
+							<div class="detail-info" >
+							<div class="product-name">
+                            <a class="link-to-product" href="{{ route('Shop.show', $item->model->slug)}}">{{ $item->model->name}}</a>
+							</div>
+							<div class="short-desc" style="margin-left: 20px;">
+								{{ $item->model->short_description}}
+							</div>
+							</div>
+							<div class="price-field produtc-price"><p class="price">${{ $item->model->price}}</p></div>
+							<div class="quantity">
+								<div class="quantity-input">
+									<input type="text" name="product-quatity" value="1" data-max="120" pattern="[0-9]*" >									
+									<a class="btn btn-increase" href="#"></a>
+									<a class="btn btn-reduce" href="#"></a>
+								</div>
+							</div>
+							<div class="price-field sub-total">
+								
+								<form action="{{ route('SaveForLater.switchToCart', $item->rowId)}}" method="POST">
+									{{ csrf_field()}}
+									
+									<button type="submit" class="btn btn-success" style="font-size: 10px;"><i class="fa fa-times-circle" aria-hidden="true"></i>Move to Cart</button>
+								</form>
+							
+							</div>
+							<div class="delete">
+								<form action="{{ route('SaveForLater.destroy', $item->rowId)}}" method="POST">
+									{{ csrf_field()}}
+									{{ method_field('DELETE')}}
+									
+									<button type="submit" class="btn btn-danger" style="font-size: 10px;"><i class="fa fa-times-circle" aria-hidden="true"></i>Remove</button>
+								</form>
+							</div>
+							
+                        </li>
+						@endforeach
+						</ul>
+						
+                		 @endif	
 					</div>
 				</div>
                 <!--start related prodcuts-->
@@ -128,4 +190,8 @@
 		</div><!--end container-->
 
 	</main>
+@endsection
+
+@section('extra-js')
+	
 @endsection

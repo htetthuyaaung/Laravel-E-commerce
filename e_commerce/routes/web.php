@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckOutController;
+use App\Http\Controllers\ConfirmationController;
+use App\Http\Controllers\SaveForLaterController;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use app\Models\Product;
 /*
@@ -32,10 +35,17 @@ Route::get('/cart', [CartController::class, 'index'])->name('Cart.index');
 
 Route::post('/cart', [CartController::class, 'store'])->name('Cart.store');
 
+Route::delete('/cart{product}', [CartController::class, 'destroy'])->name('Cart.destroy');
+Route::post('/cart/switchToSaveForLater/{product}', [CartController::class, 'switchToSaveForLater'])->name('Cart.switchToSaveForLater');
+
+Route::delete('/saveForLater{product}', [SaveForLaterController::class, 'destroy'])->name('SaveForLater.destroy');
+Route::post('/saveForLater/switchToSaveForLater/{product}', [SaveForLaterController::class, 'switchToCart'])->name('SaveForLater.switchToCart');
+
 Route::get('empty', function(){
-    Cart::destroy();
+    Cart::instance('saveForLater')->destroy();
 });
 
-Route::view('/checkout', 'checkout');
+Route::get('/checkout',[CheckOutController::class, 'index'])->name('CheckOut.index');
+Route::post('/checkout', [CheckOutController::class, 'store'])->name('CheckOut.store');
 
-Route::view('/thankyou', 'thankyou');
+Route::get('/thankyou',[ConfirmationController::class,'index'])->name('Confirmation.index');

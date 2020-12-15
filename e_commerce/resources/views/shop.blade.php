@@ -38,8 +38,16 @@
 									</div>
 									<div class="product-info">
 										<a href="{{ route('Shop.show', $product->slug)}}" class="product-name"><span>{{ $product->name }}</span></a>
-									<div class="wrap-price"><span class="product-price">${{ $product->price}}</span></div>
-										<a href="#" class="btn add-to-cart">Add To Cart</a>
+										<div class="wrap-price"><span class="product-price">${{ $product->price}}</span></div>
+
+										<form action="{{ route('Cart.store')}}" method="POST">
+											{{ csrf_field() }}
+											<input type="hidden" name="id" value="{{ $product->id }}">
+											<input type="hidden" name="name" value="{{ $product->name }}">
+											<input type="hidden" name="price" value="{{ $product->price }}">
+											<button type="submit" class="btn1 success">Add to Cart</button>
+											</form>
+										
 									</div>
 								</div>
 							</li>

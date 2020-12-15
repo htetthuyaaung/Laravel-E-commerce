@@ -15,6 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('assets/css/chosen.min.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('assets/css/color-01.css')}}">
+	
 </head>
 <body class="home-page home-01 ">
 
@@ -124,7 +125,10 @@
 							<a href="{{ route('Cart.index')}}" class="link-direction">
 									<i class="fa fa-shopping-basket" aria-hidden="true"></i>
 									<div class="left-info">
-										<span class="index">4 items</span>
+										@if ( Cart::instance('default')->count()>0 )
+											<span class="index">{{ Cart::instance('default')->count()}}item(s)</span>
+										@endif
+										
 										<span class="title">CART</span>
 									</div>
 								</a>
@@ -167,7 +171,16 @@
 								<a href="{{ route('Shop.index')}}" class="link-term mercado-item-title">Shop</a>
 								</li>
 								<li class="menu-item">
-								<a href="{{ route('Cart.index')}}" class="link-term mercado-item-title">Cart</a>
+								<a href="{{ route('Cart.index')}}" class="link-term mercado-item-title">Cart
+									@if ( Cart::instance('default')->count()>0 )
+											<span  style=" height: 15px;
+  															width: 15px;
+  															background-color:red;
+  															border-radius: 50%;
+  															display: inline-block;"><p style="margin-left: 3px; margin-top:-2px;">{{ Cart::instance('default')->count()}}</p></span>
+										@endif
+								</a>
+									
 								</li>
 								<li class="menu-item">
 									<a href="/checkout" class="link-term mercado-item-title">Checkout</a>
@@ -186,7 +199,7 @@
       
         
      @yield('content')
-       
+     @yield('extra-js') 
 
 	<footer id="footer">
 		<div class="wrap-footer-content footer-style-1">

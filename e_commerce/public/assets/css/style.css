@@ -4143,24 +4143,10 @@ article.single-post blockquote p:last-child::after{
     vertical-align: middle;
 }
 .order-summary .summary-info.total-info{
-    border-top: 1px solid #e6e6e6;
-    margin-top: 20px;
-    padding-top: 17px;
+  
+    margin-top: 2px;
+    padding-top: 2px;
     font-size: 15px;
-}
-.order-summary .summary-info.box-title{
-     
-    color: red;
-    line-height: 20px;
-    text-align: left;
-    border-bottom: 1px solid #e6e6e6;
-    margin-bottom: 18px;
-    padding-bottom: 15px;
-    margin-top: 0;
-    border-top: 1px solid #e6e6e6;
-    margin-top: 20px;
-    padding-top: 17px;
-    font-size: 13px;
 }
 .order-summary .summary-info.total-info .title{
     color: #333333;
@@ -4168,13 +4154,6 @@ article.single-post blockquote p:last-child::after{
 .row-in-form .checkbox-field input[type="checkbox"],
 .summary .checkout-info .checkbox-field input[type="checkbox"]{
     display: none;
-}
-.row-in-form.title{
-     margin-top: 0;
-    border-top: 1px solid #e6e6e6;
-    margin-top: 20px;
-    padding-top: 17px;
-    font-size: 13px;
 }
 .row-in-form .checkbox-field input[type="checkbox"] + span,
 .summary .checkout-info .checkbox-field input[type="checkbox"] + span{
@@ -4841,16 +4820,6 @@ table.shop_attributes tbody{
     width: -moz-calc( 50% - 15px );
     margin-bottom: 23px;
 }
-/* .wrap-address-billing .row-in-form1{
-    margin: 0;
-    display: block;
-    float: left;
-    width: calc( 50% - 15px );
-    width: -webkit-calc( 50% - 15px );
-    width: -moz-calc( 50% - 15px );
-    margin-bottom: 23px;
-} */
-
 .wrap-address-billing .row-in-form.fill-wife{
     width: 100%;
     margin-right: 0px !important; 
@@ -5028,7 +4997,6 @@ table.shop_attributes tbody{
 .summary-item .row-in-form input[type=text], 
 .summary-item .row-in-form input[type=tel]{
     font-size: 13px;
-    
     line-height: 19px;
     display: inline-block;
     height: 43px;
@@ -7250,6 +7218,28 @@ background-color: #888888;
     color:  #cfd7df;
 }
 
+.input{
+    border-radius: 5px;
+    width: 90px;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+    border: 1px solid #cfd7df;
+    float: right; 
+}
+
+
 .text{
-	  color: red;
+      color: red;
   }
+
+ /* input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 20; 
+  color: red;
+} */
+
+.product-header{
+    display: flex;
+    justify-content: space-between;
+}

@@ -11,8 +11,8 @@
 
 			<div class="wrap-breadcrumb">
 				<ul>
-					<li class="item-link"><a href="#" class="link">home</a></li>
-					<li class="item-link"><span>login</span></li>
+					<li class="item-link"><a href="#" class="link">ပြင်ပ</a></li>
+					<li class="item-link"><span>ကိုယ်ပိုင် နေရာသို့ဝင်ရောက်မည်</span></li>
 				</ul>
 			</div>
 		<div class=" main-content-area">
@@ -37,7 +37,7 @@
                		 @endif
 
 				<div class="wrap-show-advance-info-box style-1 box-in-site" style="width: 100%;">
-					<h3 class="title-box" style="background-color:grey">Your Order Here!</h3>
+					<h3 class="title-box" style="background-color:grey">သင်ရွေးချယ်ထားသော ပစ္စည်းများ</h3>
 				</div>	
 					<ul class="products-cart">
                         
@@ -51,20 +51,20 @@
 							<div class="product-name">
                             <a class="link-to-product" href="{{ route('Shop.show', $item->model->slug)}}">{{ $item->model->name}}</a>
 							</div>
-							<div class="short-desc" style="margin-left: 20px;">
+							<div class="short-desc" style="margin-left: 20px;margin-right:50px;">
 								{{ $item->model->short_description}}
 							</div>
 							</div>
 							<div class="price-field quantity">အရေအတွက်
 								<div class="quantity-input" style="width: 30px; height:30px;border: 2px solid red;
 																	padding: 5px;
-																	border-radius: 25px;">
-									15		
+																	border-radius: 25px;float:right;">
+										{{$item->qty}}
 								</div></div>
 							<div class="quantity" style="padding-left:40px;" >
 								<div class="quantity-input" style="width: 30px; height:30px;border: 2px solid gray;
 																	padding:5px 7px 0px 10px;
-																	border-radius: 25px;">
+																	border-radius: 25px;25px;float:left	;">
 									X		
 								</div>
 							</div>
@@ -79,17 +79,28 @@
 			
 					<!--End wrap-products-->
 					<div class="order-summary">
-                        <p class="summary-info total-info"><span class="title" >Subtotal</span><b class="index">${{ Cart::subtotal()}}</b></p>
-                        <p class="summary-info"><span class="title">Tax(13%)</span><b class="index">${{ Cart::tax()}}</b></p>
-						<p class="summary-info"><span class="title">Discount(100FF-10%)</span><b class="index">-$56</b></p>
-						<p class="summary-info box-title "><span class="title">Total</span><b class="index">${{ Cart::total()}}</b></p>
+                        
+					<div class="summary-item shipping-method">
+						<h4 class="title-box f-title">စာရင်းချုပ်</h4>
+						<p class="summary-info total-info"><span class="title" >သင့်ကုန်ကျငွေ</span><b class="index">${{ Cart::subtotal()}}</b></p>
+                        <p class="summary-info"><span class="title">နိုင်ငံတော်အခွန်(၁၃%)</span><b class="index">${{ Cart::tax()}}</b></p>
+						<p class="summary-info"><span class="title">လျော့စျေး(100FF-10%)</span><b class="index">-$56</b></p>
+						<p class="summary-info box-title "><span class="title">စုစုပေါင်းကုန်ကျငွေ</span><b class="index">${{ Cart::total()}}</b></p>
+
+						<h4 class="title-box">လျော့စျေးကုဒ်ထည့်ရန်</h4>
+						<p class="row-in-form">
+							<label for="coupon-code">ဤနေရာတွင်ကုဒ်ကိုထည့်ပါ</label>
+							<input id="coupon-code" type="text" name="coupon-code" value="" placeholder="">	
+						</p>
+						<a href="#" class="btn btn-small">အတည်ပြုမည်</a>
+					</div>
 						
                     </div>
 			</div>
 
 				<div class="wrap-address-billing ">
-					<div class="wrap-show-advance-info-box style-1 box-in-site" style="width: 100%;">
-					<h3 class="title-box">Please Confirmaiton For Your Order!</h3>
+					<div class="wrap-show-advance-info-box style-1 box-in-site" style="width: 100%;margin-bottom:20px;">
+					<h3 class="title-box">ပစ္စည်းမှာရန်သင့်လိပ်စာကို ပြည့်စုံစွာဖြည့်ပါ။</h3>
 					</div>
 					<form action="{{ route('CheckOut.store')}}" method="POST" id="payment-form">
 						{{ csrf_field()}}
@@ -97,6 +108,7 @@
 						<div class="row-in-form title">
 							<label for="fname">first name<span>*</span></label>
 							<input id="fname" type="text" name="fname"  class="form-control"  value="{{ old('fname')}}" placeholder="Your name">
+							
 						</div>
 						<div class="row-in-form title">
 							<label for="lname">last name<span>*</span></label>
@@ -145,25 +157,10 @@
 							<!-- Used to display form errors. -->
 							<div id="card-errors" role="alert"></div>
 						</div>
-						{{-- <p class="row-in-form" style="width: 50%;">
-							<label for="address">Address<span>*</span></label>
-							<input id="add" type="text" name="add" value=""  class="form-control" >
-						</p>
-						<p class="row-in-form" style="width:50%">
-							<label for="cnumber">Credit Card Number<span>*</span></label>
-							<input id="cnumber" type="text" name="cnumber" value=""  class="form-control" >
-						</p>
-						<p class="row-in-form" style="width:50%">
-							<label for="date">Expiry<span>*</span></label>
-							<input id="date" type="date" name="date" value="" class="form-control" style="height: 45px;">
-						</p>
-							<p class="row-in-form" style="width:50%">
-							<label for="cvccode">CVC Code<span>*</span></label>
-							<input id="cvccode" type="text" name="cvccode" value=""  class="form-control" >
-						</p> --}}
+						
 						</div>
 							<div class="row-in-form title" style="width: 100%;">
-							<button id="complete-order" class="btn success" type="submit" style="width: 100%;" >Place Order Now!</button>
+							<button id="complete-order" class="btn success" type="submit" style="width: 100%;" >ယုခုပဲ ပစ္စည်းမှာမည်</button>
 						</div>
 						
 					</form>

@@ -10,7 +10,11 @@ class Product extends Model
     use HasFactory;
 
     protected $table = "products";
-  public function scopeRelatedProducts($query)
+    public function categories()
+    {
+        return $this->belongsToMany('App\Models\Category');
+    }
+    public function scopeRelatedProducts($query)
   {
       return $query->inRandomOrder()->take(8);
   }

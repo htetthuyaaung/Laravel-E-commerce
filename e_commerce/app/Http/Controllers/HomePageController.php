@@ -10,7 +10,7 @@ class HomePageController extends Controller
    
     public function index()
     {
-        $products = Product::inRandomOrder()->take(8)->get();
+        $products = Product::where('featured', true)->get();
 
         return view('home')->with('products', $products);
     }

@@ -10,8 +10,9 @@
 
 			<div class="wrap-breadcrumb">
 				<ul>
-					<li class="item-link"><a href="/" class="link">home</a></li>
-					<li class="item-link"><span>Digital & Electronics</span></li>
+					<li class="item-link"><a href="/" class="link">ပြင်ပ</a></li>
+					<li class="item-link"><span>စျေးဝယ်မယ်
+						</span></li>
 				</ul>
 			</div>
 			<div class="row">
@@ -19,17 +20,22 @@
 				<div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 main-content-area">
 
 					<div class="wrap-shop-control">
-
-						<h1 class="shop-title">Digital & Electronics</h1>
-
+						<div class="product-header">
+							<h1 class="shop-title">{{ $categoryName }}</h1>
+								<div>
+									<strong>Price</strong>
+									<a href="{{ route('Shop.index', ['category'=> request()->category, 'sort'=> 'low_high'])}}" style="color:red;">Low to High</a> |
+									<a href="{{ route('Shop.index', ['category'=> request()->category, 'sort'=> 'high_low'])}}" style="color:red;">High to Low</a>
+								</div>
+						</div>
 					</div><!--end wrap shop control-->
 
 					<div class="row">
 
 						<ul class="product-list grid-products equal-container">
 
-							@foreach ($products as $product)
-								<li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
+							@forelse ($products as $product)
+							<li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
 								<div class="product product-style-3 equal-elem ">
 									<div class="product-thumnail">
 										<a href="{{ route('Shop.show', $product->slug)}}" title="{{ $product->name }}">
@@ -45,14 +51,19 @@
 											<input type="hidden" name="id" value="{{ $product->id }}">
 											<input type="hidden" name="name" value="{{ $product->name }}">
 											<input type="hidden" name="price" value="{{ $product->price }}">
-											<button type="submit" class="btn1 success">Add to Cart</button>
+											<button type="submit" class="btn1 success" style="font-size: 12px;">စျေးဝယ်အိတ်ထဲ သို့ထည့်မည်</button>
 											</form>
 										
 									</div>
 								</div>
 							</li>
-							@endforeach
+							@empty
 							
+
+							<h5 class="widget-title" style="margin-left:20px;">မည်သည့် ပစ္စည်းမှ မရှိပါ။</h5>
+		
+							
+							@endforelse
 						
 
 						</ul>
@@ -61,16 +72,23 @@
 
 					<div class="wrap-pagination-info">
 					
-					{{ $products->links('vendor.pagination.custom') }}
+					{{-- {{ $products->links('vendor.pagination.custom') }} --}}
+					{{ $products->appends(request()->input())->links('vendor.pagination.custom') }}
+					
 					</div>
 				</div><!--end main products area-->
 
 				<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 sitebar">
 					<div class="widget mercado-widget categories-widget">
-						<h2 class="widget-title">All Categories</h2>
+						<h2 class="widget-title">ရွေးချယ်ပါ</h2>
 						<div class="widget-content">
 							<ul class="list-category">
-								<li class="category-item has-child-cate">
+								@foreach($categories as $category)
+								<li class="category-item">
+									<a href="{{ route('Shop.index', ['category' => $category->slug])}}" class="cate-link">{{ $category->name }}</a>
+								</li>
+								@endforeach
+								{{-- <li class="category-item has-child-cate">
 									<a href="#" class="cate-link">Fashion & Accessories</a>
 									<span class="toggle-control">+</span>
 									<ul class="sub-cate">
@@ -105,13 +123,13 @@
 								</li>
 								<li class="category-item">
 									<a href="#" class="cate-link">Organics & Spa</a>
-								</li>
+								</li> --}}
 							</ul>
 						</div>
 					</div><!-- Categories widget-->
 
 					<div class="widget mercado-widget filter-widget price-filter">
-						<h2 class="widget-title">Price</h2>
+						{{-- <h2 class="widget-title">Price</h2>
 						<div class="widget-content">
 							<div id="slider-range"></div>
 							<p>
@@ -119,12 +137,12 @@
 								<input type="text" id="amount" readonly>
 								<button class="filter-submit">Filter</button>
 							</p>
-						</div>
+						</div> --}}
 					</div><!-- Price-->
 
 
 					<div class="widget mercado-widget widget-product">
-						<h2 class="widget-title">Popular Products</h2>
+						<h2 class="widget-title">လူကြိုက်များသော ပစ္စည်းများ</h2>
 						<div class="widget-content">
 							<ul class="products">
 								
@@ -144,6 +162,8 @@
 									</div>
 								</li>
 								@endforeach
+
+								
 
 							</ul>
 						</div>

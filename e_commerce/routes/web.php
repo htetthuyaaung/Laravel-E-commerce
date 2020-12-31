@@ -35,17 +35,19 @@ Route::get('/cart', [CartController::class, 'index'])->name('Cart.index');
 
 Route::post('/cart', [CartController::class, 'store'])->name('Cart.store');
 
-Route::delete('/cart{product}', [CartController::class, 'destroy'])->name('Cart.destroy');
+Route::patch('/cart/{product}', [CartController::class, 'update'])->name('Cart.update');
+
+Route::delete('/cart/{product}', [CartController::class, 'destroy'])->name('Cart.destroy');
 Route::post('/cart/switchToSaveForLater/{product}', [CartController::class, 'switchToSaveForLater'])->name('Cart.switchToSaveForLater');
 
 Route::delete('/saveForLater{product}', [SaveForLaterController::class, 'destroy'])->name('SaveForLater.destroy');
 Route::post('/saveForLater/switchToSaveForLater/{product}', [SaveForLaterController::class, 'switchToCart'])->name('SaveForLater.switchToCart');
 
-Route::get('empty', function(){
+Route::get('empty', function () {
     Cart::instance('saveForLater')->destroy();
 });
 
-Route::get('/checkout',[CheckOutController::class, 'index'])->name('CheckOut.index');
+Route::get('/checkout', [CheckOutController::class, 'index'])->name('CheckOut.index');
 Route::post('/checkout', [CheckOutController::class, 'store'])->name('CheckOut.store');
 
-Route::get('/thankyou',[ConfirmationController::class,'index'])->name('Confirmation.index');
+Route::get('/thankyou', [ConfirmationController::class, 'index'])->name('Confirmation.index');

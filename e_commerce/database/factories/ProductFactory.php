@@ -31,9 +31,8 @@ class ProductFactory extends Factory
             'description' => $this->faker->text(500),
             'price' => $this->faker->numberBetween(10,500),
             'stock_status' => 'instock',
-            'quantity' => $this->faker->numberBetween(100,200),
             'image' => 'digital_' . $this->faker->unique()->numberBetween(1,22).'.jpg',
-            'category_id' => $this->faker->numberBetween(1,5)
+            
         ];
     }
 }

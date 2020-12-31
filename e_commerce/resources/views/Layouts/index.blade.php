@@ -4,10 +4,9 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Online Shopping</title>	
+	<title>စျေးဆိုင်</title>	
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
-	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,700,700italic,900,900italic&amp;subset=latin,latin-ext" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Open%20Sans:300,400,400italic,600,600italic,700,700italic&amp;subset=latin,latin-ext" rel="stylesheet">
+	
 	<link rel="stylesheet" type="text/css" href="{{asset('assets/css/animate.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('assets/css/font-awesome.min.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('assets/css/bootstrap.min.css')}}">
@@ -116,8 +115,9 @@
 								<a href="#" class="link-direction">
 									<i class="fa fa-heart" aria-hidden="true"></i>
 									<div class="left-info">
-										<span class="index">0 item</span>
-										<span class="title">Wishlist</span>
+										
+										<span class="title">ကိုယ့်အကြိုက်</span>
+										<span class="index">(0) ခု</span>
 									</div>
 								</a>
 							</div>
@@ -125,11 +125,12 @@
 							<a href="{{ route('Cart.index')}}" class="link-direction">
 									<i class="fa fa-shopping-basket" aria-hidden="true"></i>
 									<div class="left-info">
+										<span class="title">စျေးဝယ်အိတ်</span>
 										@if ( Cart::instance('default')->count()>0 )
-											<span class="index">{{ Cart::instance('default')->count()}}item(s)</span>
+											<span class="index">({{ Cart::instance('default')->count()}}) ခု</span>
 										@endif
 										
-										<span class="title">CART</span>
+										
 									</div>
 								</a>
 							</div>
@@ -146,7 +147,7 @@
 				</div>
 
 				<div class="nav-section header-sticky">
-					<div class="header-nav-section">
+					{{-- <div class="header-nav-section">
 						<div class="container">
 							<ul class="nav menu-nav clone-main-menu" id="mercado_haead_menu" data-menuname="Sale Info" >
 								<li class="menu-item"><a href="#" class="link-term">Weekly Featured</a><span class="nav-label hot-label">hot</span></li>
@@ -156,7 +157,7 @@
 								<li class="menu-item"><a href="#" class="link-term">Top rated items</a><span class="nav-label hot-label">hot</span></li>
 							</ul>
 						</div>
-					</div>
+					</div> --}}
 
 					<div class="primary-nav-section">
 						<div class="container">
@@ -165,25 +166,23 @@
 									<a href="/" class="link-term mercado-item-title"><i class="fa fa-home" aria-hidden="true"></i></a>
 								</li>
 								<li class="menu-item">
-									<a href="/about" class="link-term mercado-item-title">About Us</a>
+									<a href="/about" class="link-term mercado-item-title">ကျွန်ုပ်တို့အကြောင်း</a>
 								</li>
 								<li class="menu-item">
-								<a href="{{ route('Shop.index')}}" class="link-term mercado-item-title">Shop</a>
+								<a href="{{ route('Shop.index')}}" class="link-term mercado-item-title">စျေးဝယ်မယ်</a>
 								</li>
 								<li class="menu-item">
-								<a href="{{ route('Cart.index')}}" class="link-term mercado-item-title">Cart
+								<a href="{{ route('Cart.index')}}" class="link-term mercado-item-title">အိတ်
 									@if ( Cart::instance('default')->count()>0 )
-											<span  style=" height: 15px;
-  															width: 15px;
-  															background-color:red;
-  															border-radius: 50%;
-  															display: inline-block;"><p style="margin-left: 3px; margin-top:-2px;">{{ Cart::instance('default')->count()}}</p></span>
+									<span class="quantity-input" style="width: 30px; height:30px;border: 2px solid red;
+									padding-right:3px;background-color:red;
+									border-radius: 50px;">{{ Cart::instance('default')->count()}}</span>
 										@endif
 								</a>
 									
 								</li>
 								<li class="menu-item">
-									<a href="/checkout" class="link-term mercado-item-title">Checkout</a>
+									<a href="/checkout" class="link-term mercado-item-title">ပစည်းစစ်မယ်</a>
 								</li>
 								{{-- <li class="menu-item">
 									<a href="contact-us.html" class="link-term mercado-item-title">Contact Us</a>

@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
-
+use Illuminate\Contracts\Validation\Validator;
 
 class CartController extends Controller
 {
@@ -38,6 +38,15 @@ class CartController extends Controller
         return redirect()->route('Cart.index')->with('success_message', 'Item was added to your cart');
     }
 
+    public function update(Request $request, $id)
+    {
+        
+        
+         Cart::update($id, $request->qty);
+
+         session()->flash('success_message', 'Quantity was updated successfully!');
+         return response()->json(['success' => true]);
+    }
     /**
      * items remove form cart
      */

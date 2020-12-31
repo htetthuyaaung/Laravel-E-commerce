@@ -11,9 +11,9 @@
 
 			<div class="wrap-breadcrumb">
 				<ul>
-					<li class="item-link"><a href="/" class="link">home</a></li>
-					<li class="item-link"><a href="/shop" class="link">shop</a></li>
-					<li class="item-link"><span>detail</span></li>
+					<li class="item-link"><a href="/" class="link">ပြင်ပ</a></li>
+					<li class="item-link"><a href="/shop" class="link">စျေးဝယ်မယ်</a></li>
+					<li class="item-link"><span>အသေးစိတ်အချက်လတ်များ</span></li>
 				</ul>
 			</div>
 			
@@ -50,7 +50,7 @@
                             <div class="stock-info in-stock">
 							<p class="availability">Availability: <b>{{ $product->stock_status}}</b></p>
                             </div>
-                            <div class="quantity">
+                            {{-- <div class="quantity">
                             	<span>Quantity:</span>
 								<div class="quantity-input">
 									<input type="text" name="product-quatity" value="1" data-max="120" pattern="[0-9]*" >
@@ -58,7 +58,7 @@
 									<a class="btn btn-reduce" href="#"></a>
 									<a class="btn btn-increase" href="#"></a>
 								</div>
-							</div>
+							</div> --}}
 							<div class="wrap-butons">
 								{{-- <a href="#" class="btn add-to-cart">Add to Cart</a>
                                 <div class="wrap-btn">
@@ -70,13 +70,13 @@
 							<input type="hidden" name="id" value="{{ $product->id }}">
 							<input type="hidden" name="name" value="{{ $product->name }}">
 							<input type="hidden" name="price" value="{{ $product->price }}">
-								<button style="width: 200px;" type="submit" class="btn add-to-cart">Add to Cart</button>
+								<button style="width: 200px;" type="submit" class="btn add-to-cart" style="font-size: 12px;">စျေးဝယ်အိတ်ထဲ သို့ထည့်မည်</button>
 								</form>
 							</div>
 						</div>
 						<div class="advance-info">
 							<div class="tab-control normal">
-								<a href="#description" class="tab-control-item active">description</a>
+								<a href="#description" class="tab-control-item active">အထူးဖော်ပြချက်များ</a>
 							</div>
 							<div class="tab-contents">
 								<div class="tab-content-item active" id="description">
@@ -92,7 +92,7 @@
 					
 					<!--start popular product-->
 					<div class="widget mercado-widget widget-product">
-						<h2 class="widget-title">Related Products</h2>
+						<h2 class="widget-title">ဆက်စပ်သည့် ပစ္စည်းများ</h2>
 						<div class="widget-content">
 							<ul class="products">
 								@foreach ($relatedproduct as $product)

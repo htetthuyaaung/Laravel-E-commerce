@@ -83,16 +83,37 @@
 					<div class="summary-item shipping-method">
 						<h4 class="title-box f-title">စာရင်းချုပ်</h4>
 						<p class="summary-info total-info"><span class="title" >သင့်ကုန်ကျငွေ</span><b class="index">${{ Cart::subtotal()}}</b></p>
-                        <p class="summary-info"><span class="title">နိုင်ငံတော်အခွန်(၁၃%)</span><b class="index">${{ Cart::tax()}}</b></p>
-						<p class="summary-info"><span class="title">လျော့စျေး(100FF-10%)</span><b class="index">-$56</b></p>
+                        
+						<div class="summary-info">
+							@if(session()->has('coupon'))
+							<span class="title">လျော့စျေး({{ session()->get('coupon')['name']}}):
+								<b class="index">-${{ session()->get('coupon')['discount']}}.00</b>
+									<form action="{{ route('Coupon.destroy')}}" method="POST" style="display: inline;">
+										{{ csrf_field() }}
+										{{ method_field('delete')}}
+										<button type="submit" style="width: 70px;height:30px;padding-bottom:30px;border:none;background:none;color:red;font-size:12px;">Remove</button>
+									</form>
+									
+									<p class="summary-info total-info "><span class="title">New</span><b class="index">$new</b></p><hr>
+								</span>
+								@endif
+						</div>
+						<p class="summary-info"><span class="title">နိုင်ငံတော်အခွန်(၁၃%)</span><b class="index">${{ Cart::tax()}}</b></p>
 						<p class="summary-info box-title "><span class="title">စုစုပေါင်းကုန်ကျငွေ</span><b class="index">${{ Cart::total()}}</b></p>
 
+						@if(!session()->has('coupon'))
 						<h4 class="title-box">လျော့စျေးကုဒ်ထည့်ရန်</h4>
-						<p class="row-in-form">
+						<div class="row-in-form">
+							<form action="{{ route('Coupon.store')}}" method="POST">
+								{{ csrf_field() }}
 							<label for="coupon-code">ဤနေရာတွင်ကုဒ်ကိုထည့်ပါ</label>
-							<input id="coupon-code" type="text" name="coupon-code" value="" placeholder="">	
-						</p>
-						<a href="#" class="btn btn-small">အတည်ပြုမည်</a>
+							<input id="coupon_code" type="text" name="coupon_code">
+								<br><br>
+							<button type="submit" class="btn btn-small">အတည်ပြုမည်</button>
+							</form>
+							
+						</div>
+						@endif
 					</div>
 						
                     </div>

@@ -51,7 +51,7 @@
 											<input type="hidden" name="id" value="{{ $product->id }}">
 											<input type="hidden" name="name" value="{{ $product->name }}">
 											<input type="hidden" name="price" value="{{ $product->price }}">
-											<button type="submit" class="btn1 success" style="font-size: 12px;">စျေးဝယ်အိတ်ထဲ သို့ထည့်မည်</button>
+											<button type="submit" class="btn1 success" style="font-size: 12px;">ခြင်းတောင်းထဲ သို့ထည့်မည်</button>
 											</form>
 										
 									</div>

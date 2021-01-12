@@ -6,6 +6,7 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\ConfirmationController;
+use App\Http\Controllers\CouponsController;
 use App\Http\Controllers\SaveForLaterController;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use app\Models\Product;
@@ -42,6 +43,9 @@ Route::post('/cart/switchToSaveForLater/{product}', [CartController::class, 'swi
 
 Route::delete('/saveForLater{product}', [SaveForLaterController::class, 'destroy'])->name('SaveForLater.destroy');
 Route::post('/saveForLater/switchToSaveForLater/{product}', [SaveForLaterController::class, 'switchToCart'])->name('SaveForLater.switchToCart');
+
+Route::post('/coupon', [CouponsController::class, 'store'])->name('Coupon.store');
+Route::delete('/coupon', [CouponsController::class, 'destroy'])->name('Coupon.destroy');
 
 Route::get('empty', function () {
     Cart::instance('saveForLater')->destroy();

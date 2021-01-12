@@ -125,7 +125,7 @@
 							<a href="{{ route('Cart.index')}}" class="link-direction">
 									<i class="fa fa-shopping-basket" aria-hidden="true"></i>
 									<div class="left-info">
-										<span class="title">စျေးဝယ်အိတ်</span>
+										<span class="title">စျေးခြင်းတောင်း</span>
 										@if ( Cart::instance('default')->count()>0 )
 											<span class="index">({{ Cart::instance('default')->count()}}) ခု</span>
 										@endif
@@ -172,7 +172,7 @@
 								<a href="{{ route('Shop.index')}}" class="link-term mercado-item-title">စျေးဝယ်မယ်</a>
 								</li>
 								<li class="menu-item">
-								<a href="{{ route('Cart.index')}}" class="link-term mercado-item-title">အိတ်
+								<a href="{{ route('Cart.index')}}" class="link-term mercado-item-title">စျေးခြင်းတောင်း
 									@if ( Cart::instance('default')->count()>0 )
 									<span class="quantity-input" style="width: 30px; height:30px;border: 2px solid red;
 									padding-right:3px;background-color:red;
@@ -182,7 +182,7 @@
 									
 								</li>
 								<li class="menu-item">
-									<a href="/checkout" class="link-term mercado-item-title">ပစည်းစစ်မယ်</a>
+									<a href="/checkout" class="link-term mercado-item-title">ပစ္စည်းစစ်မယ်</a>
 								</li>
 								{{-- <li class="menu-item">
 									<a href="contact-us.html" class="link-term mercado-item-title">Contact Us</a>

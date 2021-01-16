@@ -87,19 +87,19 @@
 						<div class="summary-info">
 							@if(session()->has('coupon'))
 							<span class="title">လျော့စျေး({{ session()->get('coupon')['name']}}):
-								<b class="index">-${{ session()->get('coupon')['discount']}}.00</b>
+								<b class="index">-${{ $discount}}.00</b>
 									<form action="{{ route('Coupon.destroy')}}" method="POST" style="display: inline;">
 										{{ csrf_field() }}
 										{{ method_field('delete')}}
-										<button type="submit" style="width: 70px;height:30px;padding-bottom:30px;border:none;background:none;color:red;font-size:12px;">Remove</button>
+										<button type="submit" style="width: 70px;height:30px;padding-bottom:30px;border:none;background:none;color:red;font-size:12px;">(ပယ်ရန်)</button>
 									</form>
 									
-									<p class="summary-info total-info "><span class="title">New</span><b class="index">$new</b></p><hr>
+									<p class="summary-info total-info "><span class="title">သင့်ကုန်ကျငွေ(လျော့စျေးနှုတ်ပြီး)</span><b class="index">${{ $newSubtotal }}.00</b></p>
 								</span>
 								@endif
 						</div>
-						<p class="summary-info"><span class="title">နိုင်ငံတော်အခွန်(၁၃%)</span><b class="index">${{ Cart::tax()}}</b></p>
-						<p class="summary-info box-title "><span class="title">စုစုပေါင်းကုန်ကျငွေ</span><b class="index">${{ Cart::total()}}</b></p>
+						<p class="summary-info"><span class="title">နိုင်ငံတော်အခွန်(၁၃%)</span><b class="index">${{ $newTax }}</b></p><hr>
+						<p class="summary-info box-title "><span class="title">စုစုပေါင်းကုန်ကျငွေ</span><b class="index">${{ $newTotal }}</b></p>
 
 						@if(!session()->has('coupon'))
 						<h4 class="title-box">လျော့စျေးကုဒ်ထည့်ရန်</h4>
